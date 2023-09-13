@@ -44,3 +44,60 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+// another version of floating text
+
+import React, { Component } from 'react';
+import { View, Text, Animated, Easing } from 'react-native';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      animatedValue: new Animated.Value(0),
+    };
+  }
+
+  componentDidMount() {
+    this.startAnimation();
+  }
+
+  startAnimation() {
+    const { animatedValue } = this.state;
+    Animated.loop(
+      Animated.timing(animatedValue, {
+        toValue: 1, // You can adjust this value for the speed of the animation
+        duration: 5000, // Adjust the duration as needed
+        easing: Easing.linear,
+        useNativeDriver: true, // Enable this for performance
+      })
+    ).start();
+  }
+
+  render() {
+    const { animatedValue } = this.state;
+
+    // You can replace the text below with your lengthy text
+    const textToScroll = 'This is some lengthy text to scroll from left to right. ';
+
+    return (
+      <View>
+        <Animated.View
+          style={{
+            transform: [
+              {
+                translateX: animatedValue.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, -textToScroll.length * 10], // Adjust the multiplier as needed for the desired speed
+                }),
+              },
+            ],
+          }}>
+          <Text>{textToScroll}</Text>
+        </Animated.View>
+      </View>
+    );
+  }
+}
+
+export default App;
