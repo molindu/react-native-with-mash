@@ -13,3 +13,12 @@ React Native CLI
   * Write your own native code
   * more Complicated 
 
+State                                        Props
+ * mutable                                     *immutable
+
+class component                              Hook Function
+ * still supported                            * function component
+
+Hooks can 
+
+
